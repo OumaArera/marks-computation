@@ -1,7 +1,10 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * CreatingArrays
  */
- class Students 
+class Students 
 {
     int admin_no;
     String name;
@@ -13,6 +16,7 @@
     int kiswahili;
     int marks;
     String grade;
+    int rank;
     String class_teacher;
 
     public void calculateMarks()
@@ -20,22 +24,18 @@
         marks = mathematics + science + ssh + english + kiswahili;
     }
 
-    public void calculateGrade()
+    public String calculateGrade()
     {
         if (marks >= 400){
-            grade = "A";
-
-        }else if (marks >= 350){
-            grade = "B+";
-
-        }else if (marks >= 300){
-            grade = "B";
-
-        }else if (marks >= 250){
-            grade = "B-";
-
-        }else{
-            grade = "F";
+            return grade = "A";
+        } else if (marks >= 350){
+            return grade = "B+";
+        } else if (marks >= 300){
+            return grade = "B";
+        } else if (marks >= 250){
+            return grade = "B-";
+        } else {
+            return grade = "F";
         }
     }
 }
@@ -62,11 +62,11 @@ public class CreatingArrays {
         s2.admin_no = 7331;
         s2.name = "Peachy Kweyu";
         s2.class_stream = "F4 Red  ";
-        s2.mathematics = 90;
-        s2.science = 91;
+        s2.mathematics = 91;
+        s2.science = 89;
         s2.ssh = 79;
-        s2.english = 73;
-        s2.kiswahili = 95;
+        s2.english = 98;
+        s2.kiswahili = 79;
         s2.calculateMarks();
         s2.calculateGrade();
         s2.class_teacher = "Rambung' Fee";
@@ -79,27 +79,51 @@ public class CreatingArrays {
         s3.science = 89;
         s3.ssh = 91;
         s3.english = 56;
-        s3.kiswahili = 99;
+        s3.kiswahili = 90;
         s3.calculateMarks();
         s3.calculateGrade();
         s3.class_teacher = "Rambung' Fee";
 
         Students students[] = new Students[3];
+
         students[0] = s1;
         students[1] = s2;
         students[2] = s3;
 
-        for (int i=0; i < students.length; i++)
-        {
-            System.out.println();
-            System.out.println(students[i].admin_no + " " + students[i].name + " " + students[i].class_stream + " " + students[i].mathematics + " " + students[i].science + " " + students[i].english + " " + students[i].kiswahili + " " + students[i].ssh + " " + students[i].marks + " " + students[i].grade + " " + students[i].class_teacher);
+        Arrays.sort(students, Comparator.comparingInt(s -> -s.marks));
+
+        int rank = 1;
+        int previousMarks = students[0].marks;
+
+        for (int i = 0; i < students.length; i++) {
+            if (students[i].marks < previousMarks) {
+                rank = i + 1;
+
+            }
+
+            students[i].rank = rank;
+            previousMarks = students[i].marks;
             
+             
+        }
+
+        // for (int i=0; i < students.length; i++)
+        // {
+        //     System.out.println();
+        //     System.out.println(students[i].admin_no + " " + students[i].name + " " + students[i].class_stream + " " + students[i].mathematics + " " + students[i].science + " " + students[i].english + " " + students[i].kiswahili + " " + students[i].ssh + " " + students[i].marks + " " + students[i].grade + " " + students[i].rank + " " + students[i].class_teacher);
+            
+        // }
+        // System.out.println();
+
+        for (Students student : students){
+
+            System.out.println();
+            System.out.println(student.admin_no + " " + student.name + " " + student.class_stream + " " + student.mathematics + " " + student.science + " " + student.english + " " + student.kiswahili + " " + student.ssh + " " + student.marks + " " + student.grade + " " + student.rank + " " + student.class_teacher);
         }
         System.out.println();
 
     }
 
 }
-
 
 
